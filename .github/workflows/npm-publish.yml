@@ -41,9 +41,10 @@ jobs:
   publish:
     
     needs: deploy
-    
+          
     runs-on: ubuntu-latest
 
+    steps:
       - working-directory: dist
       - uses: JS-DevTools/npm-publish@v1
         with:
