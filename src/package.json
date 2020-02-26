@@ -1,6 +1,6 @@
 {
   "name": "@itzrabbs/angular-2-dropdown-multiselect",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Customizable dropdown multiselect in Angular 2 with bootstrap css.",
   "repository": {
     "type": "git",
@@ -20,11 +20,5 @@
   "bugs": {
     "url": "https://github.com/itzrabbs/angular-2-dropdown-multiselect.git"
   },
-  "homepage": "https://github.com/itzrabbs/angular-2-dropdown-multiselect.git",
-  "peerDependencies": {
-    "@angular/common": "8.2.14",
-    "@angular/core": "8.2.14",
-    "@angular/forms": "8.2.14",
-    "tslib": "^1.10.0"
-  }
+  "homepage": "https://github.com/itzrabbs/angular-2-dropdown-multiselect.git"
 }
