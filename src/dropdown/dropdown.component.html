@@ -1,31 +1,37 @@
 <div class="dropdown" [ngClass]="settings.containerClasses" [class.open]="isVisible" (offClick)="clickedOutside()">
-  <button type="button" class="dropdown-toggle" [ngClass]="settings.buttonClasses" (click)="toggleDropdown($event)" [disabled]="disabled"
-    [ssAutofocus]="!focusBack">
+  <button type="button" class="dropdown-toggle" [ngClass]="settings.buttonClasses" (click)="toggleDropdown($event)"
+    [disabled]="disabled" [ssAutofocus]="!focusBack">
     {{ title }}
     <span class="caret"></span>
   </button>
-  <div #scroller *ngIf="isVisible" class="dropdown-menu" [ngClass]="{'chunkydropdown-menu': settings.checkedStyle == 'visual' }"
-    (scroll)="settings.isLazyLoad ? checkScrollPosition($event) : null" (wheel)="settings.stopScrollPropagation ? checkScrollPropagation($event, scroller) : null"
-    [class.pull-right]="settings.pullRight" [class.dropdown-menu-right]="settings.pullRight" [style.max-height]="settings.maxHeight"
-    style="display: block; height: auto; overflow-y: auto;" (keydown.tab)="focusItem(1, $event)" (keydown.shift.tab)="focusItem(-1, $event)">
+  <div #scroller *ngIf="isVisible" class="dropdown-menu"
+    [ngClass]="{'chunkydropdown-menu': settings.checkedStyle == 'visual' }"
+    (scroll)="settings.isLazyLoad ? checkScrollPosition($event) : null"
+    (wheel)="settings.stopScrollPropagation ? checkScrollPropagation($event, scroller) : null"
+    [class.pull-right]="settings.pullRight" [class.dropdown-menu-right]="settings.pullRight"
+    [style.max-height]="settings.maxHeight" style="display: block; height: auto; overflow-y: auto;"
+    (keydown.tab)="focusItem(1, $event)" (keydown.shift.tab)="focusItem(-1, $event)">
     <div class="input-group input-group-merge search-container" *ngIf="settings.enableSearch">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon1">
-          <i class="fe fe-search" aria-hidden="true"></i>
+          <i class="fa fa-search" aria-hidden="true"></i>
         </span>
       </div>
-      <input type="text" class="form-control" ssAutofocus [formControl]="filterControl" [placeholder]="texts.searchPlaceholder"
-        class="form-control" style="border-top-left-radius: inherit; border-bottom-left-radius: inherit;"
-        [style.border-top-right-radius]="filterControl.value.length > 0 ? 'inherit' : null" 
+      <input type="text" class="form-control" ssAutofocus [formControl]="filterControl"
+        [placeholder]="texts.searchPlaceholder" class="form-control"
+        style="border-top-left-radius: inherit; border-bottom-left-radius: inherit;"
+        [style.border-top-right-radius]="filterControl.value.length > 0 ? 'inherit' : null"
         [style.border-bottom-right-radius]="filterControl.value.length > 0 ? 'inherit' : null">
       <div class="input-group-append" *ngIf="filterControl.value.length>0">
-        <button class="btn btn-outline-secondary btn-color-onhover" type="button" (click)="clearSearch($event)" style="display: flex;">
-          <i class="fe fe-x-circle" style="color: black;"></i>
+        <button class="btn btn-outline-secondary btn-color-onhover" type="button" (click)="clearSearch($event)"
+          style="display: flex;">
+          <i class="fa fa-times" style="color: black;"></i>
         </button>
       </div>
     </div>
     <div class="dropdown-divider" *ngIf="isVisible"></div>
-    <ng-container *ngIf="settings.showCheckAll && !disabledSelection && renderItems && renderFilteredOptions.length > 1">
+    <ng-container
+      *ngIf="settings.showCheckAll && !disabledSelection && renderItems && renderFilteredOptions.length > 1">
       <ng-container *ngIf="renderFilteredOptions.length === 2; else displayCheckAll">
         <ng-container *ngIf="renderFilteredOptions[0]?.id !== renderFilteredOptions[1]?.parentId">
           <ng-container *ngTemplateOutlet="displayCheckAll"></ng-container>
@@ -35,11 +41,13 @@
     <ng-template #displayCheckAll>
       <a role="menuitem" href="javascript:;" tabindex="-1" class="dropdown-item check-control check-control-check"
         (click)="checkAll()">
-        <span style="width: 16px;"><span class="fe fe-check"></span></span>
+        <span style="width: 16px;"><span
+            [ngClass]="{'glyphicon glyphicon-ok': settings.checkedStyle !== 'fontawesome','fa fa-check': settings.checkedStyle === 'fontawesome'}"></span></span>
         {{ texts.checkAll }}
       </a>
     </ng-template>
-    <ng-container *ngIf="settings.showUncheckAll && !disabledSelection && renderItems && renderFilteredOptions.length > 1">
+    <ng-container
+      *ngIf="settings.showUncheckAll && !disabledSelection && renderItems && renderFilteredOptions.length > 1">
       <ng-container *ngIf="renderFilteredOptions.length === 2; else displayUncheckAll">
         <ng-container *ngIf="renderFilteredOptions[0]?.id !== renderFilteredOptions[1]?.parentId">
           <ng-container *ngTemplateOutlet="displayUncheckAll"></ng-container>
@@ -49,46 +57,52 @@
     <ng-template #displayUncheckAll>
       <a role="menuitem" href="javascript:;" tabindex="-1" class="dropdown-item check-control check-control-uncheck"
         (click)="uncheckAll()">
-        <span style="width: 16px;"><span class="fe fe-x"></span></span>
+        <span style="width: 16px;"><span
+            [ngClass]="{'glyphicon glyphicon-remove': settings.checkedStyle !== 'fontawesome','fa fa-times': settings.checkedStyle === 'fontawesome'}"></span></span>
         {{ texts.uncheckAll }}
       </a>
     </ng-template>
-    <div *ngIf="(settings.showCheckAll || settings.showUncheckAll) && (renderItems && renderFilteredOptions.length > 1) && showDividerAfterCheck" class="dropdown-divider"></div>
+    <div
+      *ngIf="(settings.showCheckAll || settings.showUncheckAll) && (renderItems && renderFilteredOptions.length > 1) && showDividerAfterCheck"
+      class="dropdown-divider"></div>
     <a *ngIf="!renderItems" href="javascript:;" class="dropdown-item empty">{{ texts.searchNoRenderText }}</a>
-    <a *ngIf="renderItems && !renderFilteredOptions.length" href="javascript:;" class="dropdown-item empty">{{ texts.searchEmptyResult }}</a>
-    <a class="dropdown-item" href="javascript:;" *ngFor="let option of renderFilteredOptions; trackBy: trackById; let i = index;" [class.active]="isSelected(option)"
-      [ngStyle]="getItemStyle(option)" [ngClass]="option.classes" [class.dropdown-header]="option.isLabel" [ssAutofocus]="option !== focusedItem"
-      tabindex="-1" (click)="setSelected($event, option)" (keydown.space)="setSelected($event, option)" (keydown.enter)="setSelected($event, option)">
-      <span *ngIf="!option.isLabel; else label" role="menuitem" tabindex="-1" [ngStyle]="getItemStyleSelectionDisabled()"
-      [style.padding-left]="this.parents.length>0&&this.parents.indexOf(option.id)<0 && settings.checkedStyle !== 'feather' && '30px'">
+    <a *ngIf="renderItems && !renderFilteredOptions.length" href="javascript:;"
+      class="dropdown-item empty">{{ texts.searchEmptyResult }}</a>
+    <a class="dropdown-item" href="javascript:;"
+      *ngFor="let option of renderFilteredOptions; trackBy: trackById; let i = index;"
+      [class.active]="isSelected(option)" [ngStyle]="getItemStyle(option)" [ngClass]="option.classes"
+      [class.dropdown-header]="option.isLabel" [ssAutofocus]="option !== focusedItem" tabindex="-1"
+      (click)="setSelected($event, option)" (keydown.space)="setSelected($event, option)"
+      (keydown.enter)="setSelected($event, option)">
+      <span *ngIf="!option.isLabel; else label" role="menuitem" tabindex="-1"
+        [ngStyle]="getItemStyleSelectionDisabled()"
+        [style.padding-left]="this.parents.length>0&&this.parents.indexOf(option.id)<0 && '30px'">
         <ng-container [ngSwitch]="settings.checkedStyle">
-          <input *ngSwitchCase="'checkboxes'" type="checkbox" [checked]="isSelected(option)" (click)="preventCheckboxCheck($event, option)"
-            [disabled]="isCheckboxDisabled(option)" [ngStyle]="getItemStyleSelectionDisabled()"/>
-          <span *ngSwitchCase="'glyphicon'" style="width: 16px;" class="glyphicon" [class.glyphicon-ok]="isSelected(option)" [class.glyphicon-lock]="isCheckboxDisabled(option)"></span>
+          <input *ngSwitchCase="'checkboxes'" type="checkbox" [checked]="isSelected(option)"
+            (click)="preventCheckboxCheck($event, option)" [disabled]="isCheckboxDisabled(option)"
+            [ngStyle]="getItemStyleSelectionDisabled()" />
+          <span *ngSwitchCase="'glyphicon'" style="width: 16px;" class="glyphicon"
+            [class.glyphicon-ok]="isSelected(option)" [class.glyphicon-lock]="isCheckboxDisabled(option)"></span>
           <span *ngSwitchCase="'fontawesome'" style="width: 16px;display: inline-block;">
             <span *ngIf="isSelected(option)"><i class="fa fa-check" aria-hidden="true"></i></span>
             <span *ngIf="isCheckboxDisabled(option)"><i class="fa fa-lock" aria-hidden="true"></i></span>
           </span>
-          <span *ngSwitchCase="'visual'" style="display:block;float:left; border-radius: 0.2em; border: 0.1em solid rgba(44, 44, 44, 0.63);background:rgba(0, 0, 0, 0.1);width: 5.5em;">
+          <span *ngSwitchCase="'visual'"
+            style="display:block;float:left; border-radius: 0.2em; border: 0.1em solid rgba(44, 44, 44, 0.63);background:rgba(0, 0, 0, 0.1);width: 5.5em;">
             <div class="slider" [ngClass]="{'slideron': isSelected(option)}">
-              <img *ngIf="option.image != null" [src]="option.image" style="height: 100%; width: 100%; object-fit: contain" />
-              <div *ngIf="option.image == null" style="height: 100%; width: 100%;text-align: center; display: table; background-color:rgba(0, 0, 0, 0.74)">
+              <img *ngIf="option.image != null" [src]="option.image"
+                style="height: 100%; width: 100%; object-fit: contain" />
+              <div *ngIf="option.image == null"
+                style="height: 100%; width: 100%;text-align: center; display: table; background-color:rgba(0, 0, 0, 0.74)">
                 <div class="content_wrapper">
                   <span style="font-size:3em;color:white" class="glyphicon glyphicon-eye-close"></span>
                 </div>
               </div>
             </div>
           </span>
-          <ng-container *ngSwitchCase="'feather'">
-            <div class="custom-control custom-checkbox" [ngClass]="{'ml-4' : this.parents.length > 0 && this.parents.indexOf(option.id) < 0}">
-              <input type="checkbox" [checked]="isSelected(option)" (click)="preventCheckboxCheck($event, option)" id="randMultiCheckbox{{i}}"
-                class="custom-control-input" [disabled]="isCheckboxDisabled(option)" [ngStyle]="getItemStyleSelectionDisabled()" />
-              <label for="randMultiCheckbox{{i}}" class="custom-control-label"><span
-                  [style.font-weight]="this.parents.indexOf(option.id)>=0?'bold':'normal'">{{option.name}}</span></label>
-            </div>
-          </ng-container>
         </ng-container>
-        <span *ngIf="settings.checkedStyle !== 'feather'" [ngClass]="{'chunkyrow': settings.checkedStyle == 'visual' }" [class.disabled]="isCheckboxDisabled(option)" [ngClass]="settings.itemClasses"
+        <span [ngClass]="{'chunkyrow': settings.checkedStyle == 'visual' }"
+          [class.disabled]="isCheckboxDisabled(option)" [ngClass]="settings.itemClasses"
           [style.font-weight]="this.parents.indexOf(option.id)>=0?'bold':'normal'">
           {{ option.name }}
         </span>
