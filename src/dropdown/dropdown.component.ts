@@ -110,6 +110,7 @@ export class MultiselectDropdownComponent
   loadedValueIds = [];
   _focusBack = false;
   focusedItem: IMultiSelectOption | undefined;
+  showDividerAfterCheck = true;
 
   defaultSettings: IMultiSelectSettings = {
     closeOnClickOutside: true,
@@ -196,7 +197,6 @@ export class MultiselectDropdownComponent
 
   ngOnInit() {
     this.title = this.texts.defaultTitle || '';
-
     this.filterControl.valueChanges.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.updateRenderItems();
       if (this.settings.isLazyLoad) {
@@ -271,6 +271,15 @@ export class MultiselectDropdownComponent
     );
     this.renderFilteredOptions = this.renderItems ? this.filteredOptions : [];
     this.focusedItem = undefined;
+    // For when 1 parent and 1 child is shown --> no check/uncheck buttons --> no divider
+    if ((this.settings.showCheckAll || this.settings.showUncheckAll) && this.renderItems && this.renderFilteredOptions.length > 1) {
+      this.showDividerAfterCheck = true;
+      if (this.renderFilteredOptions.length === 2) {
+        if (this.renderFilteredOptions[0].id === this.renderFilteredOptions[1].parentId) {
+          this.showDividerAfterCheck = false;
+        }
+      }
+    }
   }
 
   applyFilters(options, value) {
@@ -351,6 +360,7 @@ export class MultiselectDropdownComponent
   clearSearch(event: Event) {
     this.maybeStopPropagation(event);
     this.filterControl.setValue('');
+    this.showDividerAfterCheck = true;
   }
 
   toggleDropdown(e?: Event) {
@@ -384,8 +394,6 @@ export class MultiselectDropdownComponent
     if (this.disabledSelection) {
       return;
     }
-
-    setTimeout(()=>{
       this.maybeStopPropagation(_event);
       this.maybePreventDefault(_event);
       const index = this.model.indexOf(option.id);
@@ -471,8 +479,6 @@ export class MultiselectDropdownComponent
       }
       this.model = this.model.slice();
       this.fireModelChange();
-
-    }, 0)
   }
 
   updateNumSelected() {

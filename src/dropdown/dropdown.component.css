@@ -46,3 +46,7 @@ a {
 .search-container {
   padding: 0px 5px 5px 5px;
 }
+
+.btn-color-onhover:hover {
+  background-color: #e63757;
+}

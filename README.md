@@ -6,16 +6,15 @@ Customizable dropdown multiselect in AngularX, TypeScript with bootstrap css.
 
 See demo: http://softsimon.github.io/angular-2-dropdown-multiselect
 
+#### Modified by rushvora to use feather icons instead of glyphicons or font awesome icons.
+
 ## Dependencies
 * Bootstrap CSS 3 or 4
 * Font Awesome (optional)
 
 ## Quick start options
 
-* [Download the latest release](https://github.com/softsimon/angular-2-dropdown-multiselect/releases).
-* Clone the repo: `git clone https://github.com/softsimon/angular-2-dropdown-multiselect.git`.
-* Install with [Bower](http://bower.io): `bower install angular-2-dropdown-multiselect --save`.
-* Install with [npm](https://www.npmjs.com): `npm install angular-2-dropdown-multiselect --save`.
+* Install with [npm](https://www.npmjs.com): `npm install @rushvora/angular-2-dropdown-multiselect --save`.
 
 ## Usage
 
@@ -112,7 +111,7 @@ myOptions: IMultiSelectOption[] = [
 | -------------------- | ------------------------------------------------------------------ | ----------------  |
 | pullRight            | Float the dropdown to the right                                    | false             |
 | enableSearch         | Enable searching the dropdown items                                | false             |
-| checkedStyle         | Style of checked items one of 'checkboxes', 'glyphicon' or 'fontawesome'  | 'checkboxes'      |
+| checkedStyle         | Style of checked items one of 'checkboxes', 'glyphicon', 'fontawesome', or 'feather'  | 'checkboxes'      |
 | buttonClasses        | CSS classes to apply to the trigger button                         | 'btn btn-default' |
 | itemClasses          | CSS classes to apply to items                                      | ''                |
 | containerClasses     | CSS classes to apply to container div                              | 'dropdown-inline' |
