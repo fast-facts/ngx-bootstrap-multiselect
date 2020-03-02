@@ -1,5 +1,8 @@
 # AngularX Dropdown Multiselect for Bootstrap CSS 
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ItzRabbs/angular-2-dropdown-multiselect.svg)](https://greenkeeper.io/)
+
+
 Works with Angular Final and AOT compilation
 
 Customizable dropdown multiselect in AngularX, TypeScript with bootstrap css.
