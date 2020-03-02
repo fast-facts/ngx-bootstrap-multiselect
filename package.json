@@ -6,6 +6,7 @@
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
+    "ng": "ng",
     "start": "ng serve",
     "prebuild": "rimraf dist",
     "build": "ng-packagr -p src/ng-package.json",
