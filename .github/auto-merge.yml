@@ -6,7 +6,7 @@ minApprovals:
   COLLABORATOR: 0
 maxRequestedChanges:
   NONE: 0
-blockingTitleRegex: '^Bump @angular'
+blockingTitleRegex: '\bBump @angular'
 
 rules:
 - minApprovals:
