@@ -32,9 +32,9 @@
   },
   "homepage": "https://github.com/itzrabbs/angular-2-dropdown-multiselect.git",
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.1001.3",
+    "@angular-devkit/build-angular": "^0.1001.4",
     "@angular/animations": "10.1.4",
-    "@angular/cli": "^10.1.3",
+    "@angular/cli": "^10.1.4",
     "@angular/common": "10.1.4",
     "@angular/compiler": "10.1.4",
     "@angular/compiler-cli": "10.1.4",
