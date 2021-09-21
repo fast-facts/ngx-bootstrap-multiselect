@@ -86,7 +86,7 @@ export class MultiselectDropdownComponent
     this.dropdownClosed.emit();
   }
 
-  destroyed$ = new Subject<any>();
+  destroyed$ = new Subject();
 
   filteredOptions: IMultiSelectOption[] = [];
   lazyLoadOptions: IMultiSelectOption[] = [];
@@ -394,91 +394,91 @@ export class MultiselectDropdownComponent
     if (this.disabledSelection) {
       return;
     }
-      this.maybeStopPropagation(_event);
-      this.maybePreventDefault(_event);
-      const index = this.model.indexOf(option.id);
-      const isAtSelectionLimit =
-        this.settings.selectionLimit > 0 &&
-        this.model.length >= this.settings.selectionLimit;
-      const removeItem = (idx, id): void => {
-        this.model.splice(idx, 1);
-        this.onRemoved.emit(id);
+    this.maybeStopPropagation(_event);
+    this.maybePreventDefault(_event);
+    const index = this.model.indexOf(option.id);
+    const isAtSelectionLimit =
+      this.settings.selectionLimit > 0 &&
+      this.model.length >= this.settings.selectionLimit;
+    const removeItem = (idx, id): void => {
+      this.model.splice(idx, 1);
+      this.onRemoved.emit(id);
+      if (
+        this.settings.isLazyLoad &&
+        this.lazyLoadOptions.some(val => val.id === id)
+      ) {
+        this.lazyLoadOptions.splice(
+          this.lazyLoadOptions.indexOf(
+            this.lazyLoadOptions.find(val => val.id === id)
+          ),
+          1
+        );
+      }
+    };
+
+    if (index > -1) {
+      if (
+        this.settings.minSelectionLimit === undefined ||
+        this.numSelected > this.settings.minSelectionLimit
+      ) {
+        removeItem(index, option.id);
+      }
+      const parentIndex =
+        option.parentId && this.model.indexOf(option.parentId);
+      if (parentIndex > -1) {
+        removeItem(parentIndex, option.parentId);
+      } else if (this.parents.indexOf(option.id) > -1) {
+        this.options
+          .filter(
+            child =>
+              this.model.indexOf(child.id) > -1 &&
+              child.parentId === option.id
+          )
+          .forEach(child =>
+            removeItem(this.model.indexOf(child.id), child.id)
+          );
+      }
+    } else if (isAtSelectionLimit && !this.settings.autoUnselect) {
+      this.selectionLimitReached.emit(this.model.length);
+      return;
+    } else {
+      const addItem = (id): void => {
+        this.model.push(id);
+        this.onAdded.emit(id);
         if (
           this.settings.isLazyLoad &&
-          this.lazyLoadOptions.some(val => val.id === id)
+          !this.lazyLoadOptions.some(val => val.id === id)
         ) {
-          this.lazyLoadOptions.splice(
-            this.lazyLoadOptions.indexOf(
-              this.lazyLoadOptions.find(val => val.id === id)
-            ),
-            1
-          );
+          this.lazyLoadOptions.push(option);
         }
       };
 
-      if (index > -1) {
-        if (
-          this.settings.minSelectionLimit === undefined ||
-          this.numSelected > this.settings.minSelectionLimit
-        ) {
-          removeItem(index, option.id);
-        }
-        const parentIndex =
-          option.parentId && this.model.indexOf(option.parentId);
-        if (parentIndex > -1) {
-          removeItem(parentIndex, option.parentId);
+      addItem(option.id);
+      if (!isAtSelectionLimit) {
+        if (option.parentId && !this.settings.ignoreLabels) {
+          const children = this.options.filter(
+            child =>
+              child.id !== option.id && child.parentId === option.parentId
+          );
+          if (children.every(child => this.model.indexOf(child.id) > -1)) {
+            addItem(option.parentId);
+          }
         } else if (this.parents.indexOf(option.id) > -1) {
-          this.options
-            .filter(
-              child =>
-                this.model.indexOf(child.id) > -1 &&
-                child.parentId === option.id
-            )
-            .forEach(child =>
-              removeItem(this.model.indexOf(child.id), child.id)
-            );
+          const children = this.options.filter(
+            child =>
+              this.model.indexOf(child.id) < 0 && child.parentId === option.id
+          );
+          children.forEach(child => addItem(child.id));
         }
-      } else if (isAtSelectionLimit && !this.settings.autoUnselect) {
-        this.selectionLimitReached.emit(this.model.length);
-        return;
       } else {
-        const addItem = (id): void => {
-          this.model.push(id);
-          this.onAdded.emit(id);
-          if (
-            this.settings.isLazyLoad &&
-            !this.lazyLoadOptions.some(val => val.id === id)
-          ) {
-            this.lazyLoadOptions.push(option);
-          }
-        };
-
-        addItem(option.id);
-        if (!isAtSelectionLimit) {
-          if (option.parentId && !this.settings.ignoreLabels) {
-            const children = this.options.filter(
-              child =>
-                child.id !== option.id && child.parentId === option.parentId
-            );
-            if (children.every(child => this.model.indexOf(child.id) > -1)) {
-              addItem(option.parentId);
-            }
-          } else if (this.parents.indexOf(option.id) > -1) {
-            const children = this.options.filter(
-              child =>
-                this.model.indexOf(child.id) < 0 && child.parentId === option.id
-            );
-            children.forEach(child => addItem(child.id));
-          }
-        } else {
-          removeItem(0, this.model[0]);
-        }
+        removeItem(0, this.model[0]);
       }
-      if (this.settings.closeOnSelect) {
-        this.toggleDropdown();
-      }
-      this.model = this.model.slice();
-      this.fireModelChange();
+    }
+    if (this.settings.closeOnSelect) {
+      this.toggleDropdown();
+    }
+    this.model = this.model.slice();
+    this.fireModelChange();
   }
 
   updateNumSelected() {
@@ -717,7 +717,7 @@ export class MultiselectDropdownComponent
       e.stopPropagation();
     }
   }
-  
+
   private _escapeRegExp(str: string): RegExp {
     const regExpStr = str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
     return new RegExp(regExpStr, 'i');
