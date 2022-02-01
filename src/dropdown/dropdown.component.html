@@ -17,7 +17,7 @@
           <i class="fa fa-search" aria-hidden="true"></i>
         </span>
       </div>
-      <input type="text" class="form-control" ssAutofocus [formControl]="filterControl"
+      <input type="text" class="form-control" [ssAutofocus]="true" [formControl]="filterControl"
         [placeholder]="texts.searchPlaceholder" class="form-control"
         style="border-top-left-radius: inherit; border-bottom-left-radius: inherit;"
         [style.border-top-right-radius]="filterControl.value.length > 0 ? 'inherit' : null"
@@ -66,8 +66,8 @@
       *ngIf="(settings.showCheckAll || settings.showUncheckAll) && (renderItems && renderFilteredOptions.length > 1) && showDividerAfterCheck"
       class="dropdown-divider"></div>
     <a *ngIf="!renderItems" href="javascript:;" class="dropdown-item empty">{{ texts.searchNoRenderText }}</a>
-    <a *ngIf="renderItems && !renderFilteredOptions.length" href="javascript:;"
-      class="dropdown-item empty">{{ texts.searchEmptyResult }}</a>
+    <a *ngIf="renderItems && !renderFilteredOptions.length" href="javascript:;" class="dropdown-item empty">{{
+      texts.searchEmptyResult }}</a>
     <a class="dropdown-item" href="javascript:;"
       *ngFor="let option of renderFilteredOptions; trackBy: trackById; let i = index;"
       [class.active]="isSelected(option)" [ngStyle]="getItemStyle(option)" [ngClass]="option.classes"
