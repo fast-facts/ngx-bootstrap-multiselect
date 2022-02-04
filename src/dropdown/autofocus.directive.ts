@@ -6,7 +6,7 @@ import { Directive, ElementRef, Host, Input, OnChanges, OnInit, SimpleChanges } 
 export class AutofocusDirective implements OnInit, OnChanges {
 
   /**
-   * Will set focus if set to falsy value or not set at all
+   * Will set focus if set to truthy value or not set at all
    */
   @Input() ssAutofocus: boolean;
 
@@ -31,11 +31,9 @@ export class AutofocusDirective implements OnInit, OnChanges {
   }
 
   focus() {
-    if (this.ssAutofocus) {
-      return;
+    if (this.ssAutofocus === undefined || this.ssAutofocus) {
+      this.element.focus && this.element.focus();
     }
-
-    this.element.focus && this.element.focus();
   }
 
 }

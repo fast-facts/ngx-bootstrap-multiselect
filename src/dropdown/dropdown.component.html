@@ -1,6 +1,6 @@
 <div class="dropdown" [ngClass]="settings.containerClasses" [class.open]="isVisible" (offClick)="clickedOutside()">
   <button type="button" class="dropdown-toggle" [ngClass]="settings.buttonClasses" (click)="toggleDropdown($event)"
-    [disabled]="disabled" [ssAutofocus]="!focusBack">
+    [disabled]="disabled" [ssAutofocus]="focusBack">
     {{ title }}
     <span class="caret"></span>
   </button>
@@ -17,15 +17,15 @@
           <i class="fa fa-search" aria-hidden="true"></i>
         </span>
       </div>
-      <input type="text" class="form-control" [ssAutofocus]="true" [formControl]="filterControl"
+      <input type="text" class="form-control" [ssAutofocus] [formControl]="filterControl"
         [placeholder]="texts.searchPlaceholder" class="form-control"
         style="border-top-left-radius: inherit; border-bottom-left-radius: inherit;"
         [style.border-top-right-radius]="filterControl.value.length > 0 ? 'inherit' : null"
         [style.border-bottom-right-radius]="filterControl.value.length > 0 ? 'inherit' : null">
       <div class="input-group-append" *ngIf="filterControl.value.length>0">
         <button class="btn btn-outline-secondary btn-color-onhover" type="button" (click)="clearSearch($event)"
-          style="display: flex;">
-          <i class="fa fa-times" style="color: black;"></i>
+          style="display: flex; align-items: center;">
+          <i class="fa fa-times"></i>
         </button>
       </div>
     </div>
@@ -71,7 +71,7 @@
     <a class="dropdown-item" href="javascript:;"
       *ngFor="let option of renderFilteredOptions; trackBy: trackById; let i = index;"
       [class.active]="isSelected(option)" [ngStyle]="getItemStyle(option)" [ngClass]="option.classes"
-      [class.dropdown-header]="option.isLabel" [ssAutofocus]="option !== focusedItem" tabindex="-1"
+      [class.dropdown-header]="option.isLabel" [ssAutofocus]="option === focusedItem" tabindex="-1"
       (click)="setSelected($event, option)" (keydown.space)="setSelected($event, option)"
       (keydown.enter)="setSelected($event, option)">
       <span *ngIf="!option.isLabel; else label" role="menuitem" tabindex="-1"
