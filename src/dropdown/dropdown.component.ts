@@ -86,7 +86,7 @@ export class MultiselectDropdownComponent
     this.dropdownClosed.emit();
   }
 
-  destroyed$ = new Subject<any>();
+  destroyed$ = new Subject<void>();
 
   filteredOptions: IMultiSelectOption[] = [];
   lazyLoadOptions: IMultiSelectOption[] = [];
