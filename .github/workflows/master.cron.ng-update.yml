@@ -1,4 +1,4 @@
-name: "Update Angular"
+name: Update Angular
 
 on:
   schedule:
@@ -9,6 +9,7 @@ on:
 
 jobs:
   run:
+    name: Update Angular
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
