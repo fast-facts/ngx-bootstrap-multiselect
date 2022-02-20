@@ -1,5 +1,5 @@
 {
-  "name": "@itzrabbs/angular-2-dropdown-multiselect",
+  "name": "@itzrabbs/angular-2-dropdown-multiselect", 
   "version": "3.1.1",
   "description": "Customizable dropdown multiselect in Angular 2 with bootstrap css.",
   "main": "dist/bundles/dropdown.umd.js",
