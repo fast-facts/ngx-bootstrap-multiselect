@@ -10,5 +10,5 @@ updates:
   labels:
   - dependencies
   ignore:
-  - dependency-name: "@angular/*"
+  - dependency-name: "@angular*"
   - dependency-name: "karma"
