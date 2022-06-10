@@ -34,7 +34,7 @@ import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts, } from './
  * Angular 2 Dropdown Multiselect for Bootstrap
  *
  * Simon Lindh
- * https://github.com/softsimon/angular-2-dropdown-multiselect
+ * https://github.com/softsimon/ngx-bootstrap-multiselect
  */
 
 const MULTISELECT_VALUE_ACCESSOR: any = {

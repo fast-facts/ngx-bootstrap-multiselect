@@ -1,33 +1,38 @@
-# AngularX Dropdown Multiselect for Bootstrap CSS 
+This repo is solely meant for automated updates of dependencies found in softsimon's [ngx-bootstrap-multiselect](https://github.com/softsimon/ngx-bootstrap-multiselect) package.
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/ItzRabbs/angular-2-dropdown-multiselect.svg)](https://greenkeeper.io/)
+PRs will not be accepted for new features or bug fixes. Reach out to the original maintainer.
 
+```
+npm install bcrypt-updated
+```
 
-Works with Angular Final and AOT compilation
+---
 
-Customizable dropdown multiselect in AngularX, TypeScript with bootstrap css.
+# Angular Multiselect Dropdown for Bootstrap CSS 
 
-See demo: http://softsimon.github.io/angular-2-dropdown-multiselect
+Compiled for Angular 10 (Ivy disabled for backwards compatibility)
+
+Customizable multiselect dropdown in Angular(9+), TypeScript with Bootstrap css.
 
 ## Dependencies
 * Bootstrap CSS 3 or 4
 * Font Awesome (optional)
 
-## Quick start options
+## Install
 
-* Install with [npm](https://www.npmjs.com): `npm install @itzrabbs/angular-2-dropdown-multiselect --save`.
+* Install with [npm](https://www.npmjs.com): `npm install ngx-bootstrap-multiselect --save`.
 
 ## Usage
 
-Import `MultiselectDropdown` into your @NgModule.
+Import `NgxBootstrapMultiselectModule` into your @NgModule.
 
 ```js
-import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { NgxBootstrapMultiselectModule } from 'ngx-bootstrap-multiselect';
 
 @NgModule({
   // ...
   imports: [
-    MultiselectDropdownModule,
+    NgxBootstrapMultiselectModule,
   ]
   // ...
 })
@@ -36,7 +41,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 Define options in your consuming component:
 
 ```js
-import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
+import { IMultiSelectOption } from 'ngx-bootstrap-multiselect';
 
 export class MyClass implements OnInit {
     optionsModel: number[];
@@ -57,7 +62,7 @@ export class MyClass implements OnInit {
 In your template, use the component directive:
 
 ```html
-<ss-multiselect-dropdown [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+<ngx-bootstrap-multiselect [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange()"></ngx-bootstrap-multiselect>
 ```
 
 ## Customize
@@ -105,14 +110,14 @@ myOptions: IMultiSelectOption[] = [
 ```
 
 ```html
-<ss-multiselect-dropdown [options]="myOptions" [texts]="myTexts" [settings]="mySettings" [(ngModel)]="optionsModel"></ss-multiselect-dropdown>
+<ngx-bootstrap-multiselect [options]="myOptions" [texts]="myTexts" [settings]="mySettings" [(ngModel)]="optionsModel"></ngx-bootstrap-multiselect>
 ```
 ### Settings
 | Setting              | Description                                                        | Default Value     |
 | -------------------- | ------------------------------------------------------------------ | ----------------  |
 | pullRight            | Float the dropdown to the right                                    | false             |
 | enableSearch         | Enable searching the dropdown items                                | false             |
-| checkedStyle         | Style of checked items one of 'checkboxes', 'glyphicon', or 'fontawesome'  | 'checkboxes'      |
+| checkedStyle         | Style of checked items one of 'checkboxes', 'glyphicon' or 'fontawesome'  | 'checkboxes'      |
 | buttonClasses        | CSS classes to apply to the trigger button                         | 'btn btn-default' |
 | itemClasses          | CSS classes to apply to items                                      | ''                |
 | containerClasses     | CSS classes to apply to container div                              | 'dropdown-inline' |
@@ -185,10 +190,9 @@ The implementor will be responsible for completing checks when the form is submi
 ### Use model driven forms with ReactiveFormsModule:
 
 ```js
-import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
+import { IMultiSelectOption } from 'ngx-bootstrap-multiselect';
 
 export class MyClass implements OnInit {
-    model: number[];
     myOptions: IMultiSelectOption[] = [
         { id: 1, name: 'Option 1' },
         { id: 2, name: 'Option 2' },
@@ -209,7 +213,7 @@ export class MyClass implements OnInit {
 
 ```html
 <form [formGroup]="myForm">
-    <ss-multiselect-dropdown [options]="myOptions" formControlName="optionsModel"></ss-multiselect-dropdown>
+    <ngx-bootstrap-multiselect [options]="myOptions" formControlName="optionsModel"></ngx-bootstrap-multiselect>
 </form>
 ```
 

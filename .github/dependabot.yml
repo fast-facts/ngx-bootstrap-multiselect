@@ -3,9 +3,10 @@ updates:
 - package-ecosystem: npm
   directory: "/"
   schedule:
-    interval: daily
+    interval: "daily"
     time: "03:00"
-    timezone: America/New_York
+    timezone: "America/New_York"
+  versioning-strategy: increase
   open-pull-requests-limit: 10
   labels:
   - dependencies
