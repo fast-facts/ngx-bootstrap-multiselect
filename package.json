@@ -45,7 +45,7 @@
     "@angular/platform-server": "16.2.12",
     "@angular/router": "16.2.12",
     "@types/core-js": "^2.5.8",
-    "@types/jasmine": "^5.1.1",
+    "@types/jasmine": "^5.1.2",
     "copyfiles": "^2.0.0",
     "ng-packagr": "^16.2.3",
     "rimraf": "^5.0.5",
