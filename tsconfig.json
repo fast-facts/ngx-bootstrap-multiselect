@@ -8,6 +8,7 @@
     ],
     "module": "commonjs",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "sourceMap": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
