@@ -2,9 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { IMultiSelectOption } from './types';
 
-interface StringHashMap<T> {
-  [k: string]: T;
-}
+type StringHashMap<T> = Record<string, T>;
 
 @Pipe({
   name: 'searchFilter',

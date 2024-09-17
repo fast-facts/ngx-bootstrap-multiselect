@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, forwardRef, Inject, Input, IterableDiffers, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, forwardRef, Input, IterableDiffers, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validator } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -41,13 +41,13 @@ const MULTISELECT_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck, OnDestroy, ControlValueAccessor, Validator {
-  filterControl: FormControl = this.fb.control('');
+  filterControl = new FormControl('');
 
-  @Input() options: Array<IMultiSelectOption>;
+  @Input() options: IMultiSelectOption[];
   @Input() settings: IMultiSelectSettings;
   @Input() texts: IMultiSelectTexts;
-  @Input() disabled: boolean = false;
-  @Input() disabledSelection: boolean = false;
+  @Input() disabled = false;
+  @Input() disabledSelection = false;
   @Input() searchFunction: (str: string) => RegExp = this._escapeRegExp;
 
   @Output() selectionLimitReached = new EventEmitter();
@@ -80,7 +80,7 @@ export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck,
   parents: any[];
   title: string;
   differ: any;
-  numSelected: number = 0;
+  numSelected = 0;
   set isVisible(val: boolean) {
     this._isVisible = val;
     this._workerDocClicked = val ? false : this._workerDocClicked;
@@ -153,7 +153,6 @@ export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck,
 
   constructor(
     private element: ElementRef,
-    private fb: FormBuilder,
     private searchFilter: MultiSelectSearchFilter,
     differs: IterableDiffers,
     private cdRef: ChangeDetectorRef
@@ -317,7 +316,7 @@ export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck,
     }
   }
 
-  validate(_c: AbstractControl): { [key: string]: any } {
+  validate(_c: AbstractControl): Record<string, any> {
     if (this.model && this.model.length) {
       return {
         required: {
@@ -493,14 +492,14 @@ export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck,
           ? this.lazyLoadOptions
           : this.options;
 
-      let titleSelections: Array<IMultiSelectOption>;
+      let titleSelections: IMultiSelectOption[];
 
       if (this.settings.maintainSelectionOrderInTitle) {
         const optionIds = useOptions.map((selectOption: IMultiSelectOption, idx: number) => selectOption.id);
         titleSelections = this.model
-          .map((selectedId) => optionIds.indexOf(selectedId))
-          .filter((optionIndex) => optionIndex > -1)
-          .map((optionIndex) => useOptions[optionIndex]);
+          .map(selectedId => optionIds.indexOf(selectedId))
+          .filter(optionIndex => optionIndex > -1)
+          .map(optionIndex => useOptions[optionIndex]);
       } else {
         titleSelections = useOptions.filter((option: IMultiSelectOption) => this.model.indexOf(option.id) > -1);
       }
@@ -703,7 +702,7 @@ export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck,
   }
 
   private _escapeRegExp(str: string): RegExp {
-    const regExpStr = str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    const regExpStr = str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
     return new RegExp(regExpStr, 'i');
   }
 

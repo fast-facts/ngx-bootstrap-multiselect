@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec",
+    "baseUrl": "./",
+    "module": "commonjs",
+    "target": "es5",
+    "types": [
+      "jest",
+      "node"
+    ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true
+  },
+  "files": [
+    "src/test.ts"
+  ],
+  "include": [
+    "**/*.d.ts"
+  ]
+}
