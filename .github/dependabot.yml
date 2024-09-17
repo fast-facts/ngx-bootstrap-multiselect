@@ -13,4 +13,12 @@ updates:
     ignore:
       - dependency-name: '@angular*'
       - dependency-name: 'ng-packagr'
-      - dependency-name: 'karma'
+    groups:
+      jest:
+        patterns:
+          - '*jest*'
+      types:
+        patterns:
+          - '@types/*'
+        exclude-patterns:
+          - '*jest*'

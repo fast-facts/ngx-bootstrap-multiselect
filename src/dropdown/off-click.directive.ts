@@ -1,14 +1,11 @@
-import { Directive, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, HostListener } from '@angular/core';
 
-import { ComponentRef } from '@angular/core';
-import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { Host } from '@angular/core';
 import { Output } from '@angular/core';
 
 @Directive({
-  // tslint:disable-next-line:directive-selector
   selector: '[offClick]',
+  standalone: true,
 })
 
 export class OffClickDirective {
@@ -17,7 +14,7 @@ export class OffClickDirective {
   private _clickEvent: MouseEvent;
   private _touchEvent: TouchEvent;
 
-  @HostListener('click', ['$event']) 
+  @HostListener('click', ['$event'])
   public onClick(event: MouseEvent): void {
     this._clickEvent = event;
   }
@@ -27,7 +24,7 @@ export class OffClickDirective {
     this._touchEvent = event;
   }
 
-  @HostListener('document:click', ['$event']) 
+  @HostListener('document:click', ['$event'])
   public onDocumentClick(event: MouseEvent): void {
     if (event !== this._clickEvent) {
       this.onOffClick.emit(event);

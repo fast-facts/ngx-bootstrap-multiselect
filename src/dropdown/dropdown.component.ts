@@ -1,34 +1,13 @@
-
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DoCheck,
-  ElementRef,
-  EventEmitter,
-  forwardRef,
-  HostListener,
-  Inject,
-  Input,
-  IterableDiffers,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import {
-  AbstractControl,
-  ControlValueAccessor,
-  FormBuilder,
-  FormControl,
-  NG_VALUE_ACCESSOR,
-  Validator,
-} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, forwardRef, Inject, Input, IterableDiffers, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validator } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { MultiSelectSearchFilter } from './search-filter.pipe';
+
+import { AutofocusDirective } from './autofocus.directive';
+
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts, } from './types';
 
 /*
@@ -46,13 +25,22 @@ const MULTISELECT_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'ss-multiselect-dropdown',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+
+    AutofocusDirective,
+  ],
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.css'],
-  providers: [MULTISELECT_VALUE_ACCESSOR, MultiSelectSearchFilter],
+  providers: [
+    MULTISELECT_VALUE_ACCESSOR,
+    MultiSelectSearchFilter,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck, OnDestroy, ControlValueAccessor, Validator {
-  fb = Inject(FormBuilder);
   filterControl: FormControl = this.fb.control('');
 
   @Input() options: Array<IMultiSelectOption>;
@@ -165,6 +153,7 @@ export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck,
 
   constructor(
     private element: ElementRef,
+    private fb: FormBuilder,
     private searchFilter: MultiSelectSearchFilter,
     differs: IterableDiffers,
     private cdRef: ChangeDetectorRef

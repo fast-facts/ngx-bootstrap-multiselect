@@ -1,0 +1,7 @@
+{
+  "collectCoverage": true,
+  "roots": [
+    "./demo"
+  ],
+  "verbose": true
+}
