@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { MultiSelectSearchFilter } from './search-filter.pipe';
 
 import { AutofocusDirective } from './autofocus.directive';
+import { OffClickDirective } from './off-click.directive';
 
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts, } from './types';
 
@@ -31,6 +32,7 @@ const MULTISELECT_VALUE_ACCESSOR: any = {
     ReactiveFormsModule,
 
     AutofocusDirective,
+    OffClickDirective,
   ],
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.css'],
