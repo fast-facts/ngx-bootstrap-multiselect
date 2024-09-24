@@ -53,7 +53,7 @@
     "@angular/platform-server": "18.2.5",
     "@angular/router": "18.2.5",
     "@types/jest": "^29.5.13",
-    "@types/node": "^22.5.5",
+    "@types/node": "^22.6.1",
     "@typescript-eslint/eslint-plugin": "^8.5.0",
     "@typescript-eslint/parser": "^8.5.0",
     "copyfiles": "^2.0.0",
