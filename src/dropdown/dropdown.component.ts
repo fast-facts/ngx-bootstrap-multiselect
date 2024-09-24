@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, forwardRef, Input, IterableDiffers, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validator } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validator } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -9,7 +9,7 @@ import { MultiSelectSearchFilter } from './search-filter.pipe';
 import { AutofocusDirective } from './autofocus.directive';
 import { OffClickDirective } from './off-click.directive';
 
-import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts, } from './types';
+import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from './types';
 
 /*
  * Angular 2 Dropdown Multiselect for Bootstrap
@@ -40,7 +40,7 @@ const MULTISELECT_VALUE_ACCESSOR: any = {
     MULTISELECT_VALUE_ACCESSOR,
     MultiSelectSearchFilter,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck, OnDestroy, ControlValueAccessor, Validator {
   filterControl = new FormControl('');
@@ -87,9 +87,11 @@ export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck,
     this._isVisible = val;
     this._workerDocClicked = val ? false : this._workerDocClicked;
   }
+
   get isVisible() {
     return this._isVisible;
   }
+
   renderItems = true;
   checkAllSearchRegister = new Set();
   checkAllStatus = false;
@@ -124,8 +126,9 @@ export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck,
     selectAddedValues: false,
     ignoreLabels: false,
     maintainSelectionOrderInTitle: false,
-    focusBack: true
+    focusBack: true,
   };
+
   defaultTexts: IMultiSelectTexts = {
     checkAll: 'Check all',
     uncheckAll: 'Uncheck all',
@@ -322,16 +325,16 @@ export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck,
     if (this.model && this.model.length) {
       return {
         required: {
-          valid: false
-        }
+          valid: false,
+        },
       };
     }
 
     if (this.options.filter(o => this.model.indexOf(o.id) && !o.disabled).length === 0) {
       return {
         selection: {
-          valid: false
-        }
+          valid: false,
+        },
       };
     }
 
@@ -707,5 +710,4 @@ export class MultiselectDropdownComponent implements OnInit, OnChanges, DoCheck,
     const regExpStr = str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
     return new RegExp(regExpStr, 'i');
   }
-
 }

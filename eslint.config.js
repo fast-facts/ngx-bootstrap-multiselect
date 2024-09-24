@@ -1,6 +1,5 @@
-const eslint = require('@eslint/js');
 const tseslint = require('typescript-eslint');
-const tsPlugin = require('@typescript-eslint/eslint-plugin');
+const config = require('eslint-config-final');
 
 module.exports = tseslint.config(
   {
@@ -13,9 +12,7 @@ module.exports = tseslint.config(
     files: ['**/*.ts'],
 
     extends: [
-      eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.stylistic,
+      ...config.typescript,
     ],
 
     languageOptions: {
@@ -30,34 +27,6 @@ module.exports = tseslint.config(
           'demo/tsconfig.spec.json',
         ],
       },
-    },
-
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-    },
-
-    rules: {
-      'arrow-parens': ['error', 'as-needed'],
-      eqeqeq: ['error', 'always', {
-        null: 'ignore',
-      }],
-      'no-return-await': 'error',
-      'prefer-arrow-callback': 'error',
-      'quotes': ['error', 'single', {
-        'avoidEscape': true
-      }],
-      'quote-props': ['error', 'as-needed'],
-      semi: ['error', 'always'],
-
-      '@typescript-eslint/no-deprecated': 'error',
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-expressions': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', {
-        'argsIgnorePattern': '^_',
-        'caughtErrorsIgnorePattern': '^_',
-        'destructuredArrayIgnorePattern': '^_',
-        'varsIgnorePattern': '^_'
-      }]
     },
   }
 );

@@ -5,7 +5,6 @@ import { Directive, ElementRef, Host, Input, OnChanges, OnInit, SimpleChanges } 
   standalone: true,
 })
 export class AutofocusDirective implements OnInit, OnChanges {
-
   /**
    * Will set focus if set to truthy value or not set at all
    */
@@ -16,7 +15,7 @@ export class AutofocusDirective implements OnInit, OnChanges {
   }
 
   constructor(
-    @Host() private elemRef: ElementRef,
+    @Host() private elemRef: ElementRef
   ) { }
 
   ngOnInit() {
@@ -36,5 +35,4 @@ export class AutofocusDirective implements OnInit, OnChanges {
       this.element.focus && this.element.focus();
     }
   }
-
 }

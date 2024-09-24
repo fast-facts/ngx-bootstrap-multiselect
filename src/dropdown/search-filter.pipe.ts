@@ -9,7 +9,6 @@ type StringHashMap<T> = Record<string, T>;
   standalone: true,
 })
 export class MultiSelectSearchFilter implements PipeTransform {
-
   private _lastOptions: IMultiSelectOption[];
   private _searchCache: StringHashMap<IMultiSelectOption[]> = {};
   private _searchCacheInclusive: StringHashMap<boolean | number> = {};
@@ -20,7 +19,7 @@ export class MultiSelectSearchFilter implements PipeTransform {
     str = '',
     limit = 0,
     renderLimit = 0,
-    searchFunction: (str: string) => RegExp,
+    searchFunction: (str: string) => RegExp
   ): IMultiSelectOption[] {
     str = str.toLowerCase();
 
