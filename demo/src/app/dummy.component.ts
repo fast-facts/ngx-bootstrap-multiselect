@@ -3,12 +3,11 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { DataModel } from './data-model';
 
-import { IMultiSelectSettings, IMultiSelectOption, MultiselectDropdownComponent } from '../../../src';
+import { IMultiSelectOption, IMultiSelectSettings, MultiselectDropdownComponent } from '../../../src';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dummy',
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
@@ -19,7 +18,6 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DummyComponent {
-
   @Input() data: DataModel;
   multiOptions: IMultiSelectOption[] = [
     { id: 0, name: 'parent1' },
@@ -46,13 +44,13 @@ export class DummyComponent {
     { id: 21, name: 'child16', parentId: 19 },
     { id: 22, name: 'child17' },
     { id: 23, name: 'child18' },
-    { id: 24, name: 'child18' }
-  ]
+    { id: 24, name: 'child18' },
+  ];
 
   settings: IMultiSelectSettings = {
     enableSearch: true,
     showCheckAll: true,
-    showUncheckAll: true
+    showUncheckAll: true,
   };
 
   prefixSearchFunction(str: string): RegExp {

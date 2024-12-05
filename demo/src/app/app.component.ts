@@ -9,7 +9,6 @@ import { DummyComponent } from './dummy.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [
     CommonModule,
 
@@ -20,7 +19,6 @@ import { DummyComponent } from './dummy.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-
   data$: Observable<DataModel>;
 
   constructor(private itemsService: DataService) {

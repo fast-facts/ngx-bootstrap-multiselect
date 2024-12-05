@@ -26,7 +26,6 @@ const MULTISELECT_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'ss-multiselect-dropdown',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
