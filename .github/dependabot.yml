@@ -14,6 +14,10 @@ updates:
       - dependency-name: '@angular*'
       - dependency-name: 'ng-packagr'
     groups:
+      typescript and eslint:
+        patterns:
+          - '*typescript*'
+          - '*eslint*'
       jest:
         patterns:
           - '*jest*'
