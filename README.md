@@ -3,18 +3,19 @@ This repo is solely meant for automated updates of dependencies found in softsim
 PRs will not be accepted for new features or bug fixes. Reach out to the original maintainer.
 
 ```
-npm install bcrypt-updated
+npm install ngx-bootstrap-multiselect-updated
 ```
 
 ---
 
-# Angular Multiselect Dropdown for Bootstrap CSS 
+# Angular Multiselect Dropdown for Bootstrap CSS
 
 Compiled for Angular 10 (Ivy disabled for backwards compatibility)
 
 Customizable multiselect dropdown in Angular(9+), TypeScript with Bootstrap css.
 
 ## Dependencies
+
 * Bootstrap CSS 3 or 4
 * Font Awesome (optional)
 
@@ -68,6 +69,7 @@ In your template, use the component directive:
 ## Customize
 
 Import the `IMultiSelectOption` and `IMultiSelectTexts` interfaces to enable/override settings and text strings:
+
 ```js
 
 // Default selection
@@ -112,7 +114,9 @@ myOptions: IMultiSelectOption[] = [
 ```html
 <ngx-bootstrap-multiselect [options]="myOptions" [texts]="myTexts" [settings]="mySettings" [(ngModel)]="optionsModel"></ngx-bootstrap-multiselect>
 ```
+
 ### Settings
+
 | Setting              | Description                                                        | Default Value     |
 | -------------------- | ------------------------------------------------------------------ | ----------------  |
 | pullRight            | Float the dropdown to the right                                    | false             |
@@ -146,6 +150,7 @@ myOptions: IMultiSelectOption[] = [
 | focusBack | Set the focus back to the input control when the dropdown closed              | true             |
 
 ### Texts
+
 | Text Item             | Description                                | Default Value     |
 | --------------------- | ------------------------------------------ | ----------------  |
 | checkAll              | The text for the "check all" option        | 'Check all'       |
@@ -161,7 +166,9 @@ myOptions: IMultiSelectOption[] = [
 ## Other examples
 
 ### Single select
+
 Although this dropdown is designed for multiple selections, a common request is to only allow a single selection without requiring the user to unselect their previous selection each time. This can be accomplished by setting selectionLimit to 1 and autoUnselect to true.
+
 ```
 {
   ...
@@ -187,7 +194,7 @@ Clicking ```Select All``` or ```Unselect All``` with no search criteria present 
 
 The implementor will be responsible for completing checks when the form is submitted. This could possibly either consist of completing the load of all lazy load checklists before submitting or sending checked items and search criteria to a back-end api to complete.
 
-### Use model driven forms with ReactiveFormsModule:
+### Use model driven forms with ReactiveFormsModule
 
 ```js
 import { IMultiSelectOption } from 'ngx-bootstrap-multiselect';
